@@ -7,6 +7,7 @@ package grafosu3;
 
 import Controlador.Grafo.GrafoDirigido;
 import Controlador.Grafo.GrafoNoDirigido;
+import Vista.FrmGrafo;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         GrafoDirigido gd = new GrafoDirigido(4);
         GrafoNoDirigido gnd = new GrafoNoDirigido(4);
-        System.out.println("Grafo dirigido");
+//        System.out.println("Grafo dirigido");
 //        System.out.println(gd);
         System.out.println("---------------------------------------------------");
         try {
@@ -32,6 +33,7 @@ public class Main {
             gnd.insertarArista(4, 2);
             gnd.insertarArista(4, 1);
             gnd.insertarArista(4, 3);
+            new FrmGrafo(null, true, gnd).setVisible(true);
             System.out.println(gnd);
 
         } catch (Exception e) {
