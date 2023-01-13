@@ -6,7 +6,9 @@
 
 package Vista;
 
+import Controlador.Grafo.Adyacencia;
 import Controlador.Grafo.Grafo;
+import Controlador.ListaEnlazada.ListaEnlazada;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxGraphLayout;
@@ -37,7 +39,7 @@ public class FrmGrafo extends javax.swing.JDialog {
         initComponents();
         cargarDatos();
     }
-    
+    //TODO lo del grafo xd
     private void cargarDatos(){
         mxGraph graph = new mxGraph();
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
@@ -48,7 +50,13 @@ public class FrmGrafo extends javax.swing.JDialog {
         graph.getModel().beginUpdate();
         try {
             for(int i = 1; i <= grafo.numVertices(); i++){
-                graph.insertVertex(parent, String.valueOf(i), String.valueOf(i), 100, 100, 80, 30);
+                Object start = graph.insertVertex(parent, String.valueOf(i), String.valueOf(i), 100, 100, 80, 30);
+                ListaEnlazada<Adyacencia> lista = grafo.adyacentes(i);
+                for(int j = 0; j < lista.getSize(); j++){
+                    Adyacencia a = lista.obtener(j);
+                    Object dest = graph.insertVertex(parent, String.valueOf(a.getDestino()), String.valueOf(a.getDestino()), 100, 100, 80, 30);
+                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), start, dest);
+                }
             }
         } catch (Exception e) {
         }finally {
